@@ -19,16 +19,16 @@ namespace MySLOTree.Controllers
                 {
                     Folders = context.Folders.Where(x => !x.IsDeleted).ToArray().Select(x => new FoldersModel(x))
                 };
-
-                return View(model);
+                return View(model);//Возвращение списка всех папок где параметр IsDeleted false
 
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(int? parentId, string title)
+        public ActionResult Add(int? parentId, string title)//метод добавления новой записи
         {
+
             using (TreeContext context = new TreeContext())
             {
                 var newFolders = new Folders()
@@ -45,7 +45,7 @@ namespace MySLOTree.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public ActionResult Move(int nodeId, int? newParentId)
+        public ActionResult Move(int nodeId, int? newParentId)//Метод перемещения ветви в другую ветвь
         {
             if (nodeId == newParentId)
             {
@@ -65,7 +65,7 @@ namespace MySLOTree.Controllers
             return RedirectToAction("Index");
         }
 
-        private bool ContainsChilds(TreeContext context, int parentId, int id)
+        private bool ContainsChilds(TreeContext context, int parentId, int id)//не совсем понятно
         {
             bool result = false;
             var inner = context.Folders.Where(x => x.ParentId == parentId && !x.IsDeleted).ToArray();
@@ -82,7 +82,7 @@ namespace MySLOTree.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id)//метод принимающий параметры для удаления записи
         {
             using (TreeContext context = new TreeContext())
             {
@@ -93,7 +93,7 @@ namespace MySLOTree.Controllers
             return RedirectToAction("Index");
         }
 
-        private void DeleteNodes(TreeContext context, int id)
+        private void DeleteNodes(TreeContext context, int id)//метод удаления записи
         {
             var inner = context.Folders.Where(x => x.ParentId == id && !x.IsDeleted).ToArray();
             foreach (var node in inner)

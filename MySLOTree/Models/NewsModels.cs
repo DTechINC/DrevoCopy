@@ -19,7 +19,7 @@ namespace MySLOTree.Models
     }
 
     [Table("Folders")]
-    public class Folders
+    public class Folders //модель бд
     {
         public Folders()
         {
@@ -33,7 +33,7 @@ namespace MySLOTree.Models
         public bool IsDeleted { get; set; }
     }
 
-    public class FoldersModel
+    public class FoldersModel//модель ветви дерева
     {
         internal FoldersModel(Folders folders)
         {
@@ -47,7 +47,7 @@ namespace MySLOTree.Models
         public string Title {get;set;}
     }
 
-    public class FoldersListModel
+    public class FoldersListModel//модель списка ветвей
     {
         public int? Seed { get; set; }
         public IEnumerable<FoldersModel> Folders { get; set; }
