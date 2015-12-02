@@ -31,6 +31,7 @@ namespace MySLOTree.Models
         public int? ParentId { get; set; }
         public string Title { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsList { get; set; }
     }
 
     public class FoldersModel//модель ветви дерева
@@ -40,11 +41,13 @@ namespace MySLOTree.Models
             this.Id = folders.Id;
             this.ParentId = folders.ParentId;
             this.Title = folders.Title;
+            this.IsList = folders.IsList;
         }
 
         public int Id {get; set; }
         public int? ParentId {get; set; }
         public string Title {get;set;}
+        public bool IsList { get; set; }
     }
 
     public class FoldersListModel//модель списка ветвей

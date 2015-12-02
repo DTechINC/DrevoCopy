@@ -45,9 +45,11 @@ else
             <span style="font-weight:bold; font-size:16px;">Введите заголовок</span>
             <input type="hidden" id="parentId" name="parentId" />
             <input id="title" name="title" type="text" autocomplete="off" />
+            <input type="hidden" id="isList" name="isList"/>
             <div style="display:inline;">
                 <button type="button" onclick="checkAndAdd()">Добавить</button>
-                <button type="button" onclick="$('#overlay').hide();">Отмена</button>
+                <button type="button" onclick="$('#overlay').hide();">Отмена</button><br />
+                <input type="checkbox" name="cbList" value="true" id="cbList" onclick="selectList()";/> Является листом
             </div>
         }
     </div>

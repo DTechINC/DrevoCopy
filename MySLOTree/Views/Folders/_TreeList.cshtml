@@ -13,8 +13,10 @@
                     <div class="drop" parent-id="@node.Id">
                         <a href="#" node-id="@node.Id" class="drag" onclick="expand(this)">@node.Title</a>
                     </div>
-                    <div class="add" title="Add" onclick="openAdd(@node.Id)">
-                    </div>
+                    @if(node.IsList==false)
+                    {
+                        Output.WriteLine(@"<div class=""add"" title=""Add"" onclick=""openAdd(" + @node.Id + @")""></div>");                    
+                    }
                     <div class="remove">@Ajax.ActionLink("1", "Delete", new { id = node.Id }, new AjaxOptions { HttpMethod = "POST", OnSuccess = "document.location.reload(true);", OnFailure = "alert('Some errors may occurs. Item not delete.');" }, new {title="Remove" })
                     </div>
                 </div>

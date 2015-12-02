@@ -19,14 +19,14 @@ namespace MySLOTree.Controllers
                 {
                     Folders = context.Folders.Where(x => !x.IsDeleted).ToArray().Select(x => new FoldersModel(x))
                 };
-                return View(model);//Возвращение списка всех папок где параметр IsDeleted false
+                return View(model);//Возвращение список всех папок где параметр IsDeleted false
 
             }
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(int? parentId, string title)//метод добавления новой записи
+        public ActionResult Add(int? parentId, string title, bool isList)//метод добавления новой записи
         {
 
             using (TreeContext context = new TreeContext())
@@ -34,7 +34,8 @@ namespace MySLOTree.Controllers
                 var newFolders = new Folders()
                 {
                     ParentId = parentId,
-                    Title = title
+                    Title = title,
+                    IsList=isList                                   
                 };
                 context.Folders.Add(newFolders);
                 context.SaveChanges();
@@ -44,13 +45,19 @@ namespace MySLOTree.Controllers
         }
 
         [ValidateAntiForgeryToken]
-        [HttpPost]
-        public ActionResult Move(int nodeId, int? newParentId)//Метод перемещения ветви в другую ветвь
+        [HttpPost]  
+        public ActionResult Move(int nodeId, int? newParentId, bool list)//Метод перемещения ветви в другую ветвь
         {
-            if (nodeId == newParentId)
+            if (list)
             {
                 return RedirectToAction("Index");
             }
+
+            if (nodeId == newParentId)
+            {
+                return RedirectToAction("Index");
+            }            
+          
             using (TreeContext context = new TreeContext())
             {
                 if (newParentId.HasValue && ContainsChilds(context, nodeId, newParentId.Value))
